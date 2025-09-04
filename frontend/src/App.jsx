@@ -8,34 +8,59 @@ import './App.css'
 function App() {
   const dispatch = useDispatch()
   const { items: goals, status, error } = useSelector(state => state.goals)
+  const [operationStatus, setOperationStatus] = useState('idle')
 
   useEffect(() => {
     dispatch(fetchGoals())
   }, [dispatch])
 
   async function onCreate(payload) {
-    await dispatch(createGoalThunk(payload))
+    setOperationStatus('creating')
+    try {
+      await dispatch(createGoalThunk(payload))
+    } finally {
+      setOperationStatus('idle')
+    }
   }
 
   async function updateGoal(id, updates) {
-    await dispatch(updateGoalThunk({ id, updates }))
+    setOperationStatus('updating')
+    try {
+      await dispatch(updateGoalThunk({ id, updates }))
+    } finally {
+      setOperationStatus('idle')
+    }
   }
 
   async function deleteGoal(id) {
-    await dispatch(deleteGoalThunk(id))
+    setOperationStatus('deleting')
+    try {
+      await dispatch(deleteGoalThunk(id))
+    } finally {
+      setOperationStatus('idle')
+    }
   }
 
   return (
     <div className="container">
       <h1>Health Goals</h1>
       <p>State: {status}</p>
-      <GoalForm onCreate={onCreate} />
+      {operationStatus !== 'idle' && (
+        <div className="operation-status">
+          {operationStatus === 'creating' && 'Creating goal...'}
+          {operationStatus === 'updating' && 'Updating goal...'}
+          {operationStatus === 'deleting' && 'Deleting goal...'}
+        </div>
+      )}
+      <GoalForm onCreate={onCreate} disabled={operationStatus !== 'idle'} />
       {error && <div className="error">{error}</div>}
       {status === 'loading' ? <div>Loading...</div> : (
         <GoalList
           goals={goals}
           onIncrement={(id) => updateGoal(id, { target: (goals.find(g=>g.id===id)?.target || 0) + 500 })}
           onDelete={(id) => deleteGoal(id)}
+          onUpdate={(id, updates) => updateGoal(id, updates)}
+          disabled={operationStatus !== 'idle'}
         />
       )}
     </div>

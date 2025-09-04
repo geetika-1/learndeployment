@@ -4,10 +4,186 @@
   padding: 2rem;
 }
 
-.container h1 { margin: 0 0 8px; }
-.form { display: flex; gap: 8px; margin: 8px 0 16px; }
-.form input, .form select { padding: 8px; }
-.list { list-style: none; padding: 0; display: grid; gap: 8px; }
-.list li { border: 1px solid #ddd; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
-.actions { display: flex; gap: 8px; }
-.error { color: #b20000; margin: 8px 0; }
+.container h1 { 
+  margin: 0 0 8px; 
+  color: #333;
+  text-align: center;
+}
+
+.form { 
+  display: flex; 
+  gap: 8px; 
+  margin: 8px 0 16px; 
+  flex-wrap: wrap;
+}
+
+.form input, .form select { 
+  padding: 8px; 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.list { 
+  list-style: none; 
+  padding: 0; 
+  display: grid; 
+  gap: 12px; 
+}
+
+.goal-item { 
+  border: 1px solid #ddd; 
+  padding: 16px; 
+  border-radius: 8px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  background-color: #ffffff;
+  transition: box-shadow 0.2s ease;
+}
+
+.goal-item:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.goal-item.editing {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+}
+
+.goal-item.editing .goal-content {
+  color: #856404;
+}
+
+.goal-content {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+}
+
+.edit-form {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  align-items: center;
+}
+
+.edit-form input, .edit-form select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.actions { 
+  display: flex; 
+  gap: 8px; 
+}
+
+.actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.increment-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.increment-btn:hover {
+  background-color: #218838;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+.error { 
+  color: #dc3545; 
+  margin: 8px 0; 
+  padding: 8px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.operation-status {
+  color: #007bff;
+  margin: 8px 0;
+  padding: 8px;
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form input:disabled,
+.form select:disabled,
+.form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.edit-form input:disabled,
+.edit-form select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
