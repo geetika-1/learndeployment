@@ -107,7 +107,7 @@ jobs:
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars PORT=8080
+            --port 8080
 
       - name: deploy Frontend
         run: | 
@@ -116,7 +116,7 @@ jobs:
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars PORT=80
+            --port 80
 
 
 
