@@ -68,8 +68,6 @@ jobs:
 
       - name: Debug GCP Auth
         run: |
-          gcloud auth list
-          gcloud projects list --filter="${{ secrets.GCP_PROJECT_ID }}"
           gcloud artifacts repositories list --project=${{ secrets.GCP_PROJECT_ID }} --location=${{ secrets.GCP_REGION }}
 
       - name: Build backend image
