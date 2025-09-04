@@ -54,14 +54,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build backend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./backend
-          push: false
-          tags: local/health-goals-backend:ci
-      - name: Build frontend image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./frontend
-          push: false
-          tags: local/health-goals-frontend:ci
+        run: |
+          docker build -t local/health-goals-backend:ci -f backend/Dockerfile backend
+      # - name: Build frontend image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./frontend
+      #     push: false
+          # tags: local/health-goals-frontend:ci
