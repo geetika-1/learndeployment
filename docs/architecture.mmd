@@ -1,0 +1,10 @@
+flowchart LR
+  subgraph Frontend
+    UI["React SPA"]
+  end
+  subgraph Backend
+    API["Express API (Health Goals)"]
+  end
+  UI -->|REST JSON| API
+  API -->|CRUD| Store[("In-memory store / future DB")]
+  API -->|OpenAPI| Docs["Swagger UI"]

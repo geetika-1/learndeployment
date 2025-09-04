@@ -1,0 +1,13 @@
+#root {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.container h1 { margin: 0 0 8px; }
+.form { display: flex; gap: 8px; margin: 8px 0 16px; }
+.form input, .form select { padding: 8px; }
+.list { list-style: none; padding: 0; display: grid; gap: 8px; }
+.list li { border: 1px solid #ddd; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
+.actions { display: flex; gap: 8px; }
+.error { color: #b20000; margin: 8px 0; }
