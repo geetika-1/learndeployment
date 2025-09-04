@@ -64,6 +64,7 @@ jobs:
     
       - name: Debug GCP Auth
         run: |
+          gcloud config set account github-run-action@animated-surfer-471108-i9.iam.gserviceaccount.com
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
           gcloud auth list
           gcloud projects list --filter="${{ secrets.GCP_PROJECT_ID }}"
