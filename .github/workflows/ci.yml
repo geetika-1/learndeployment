@@ -61,10 +61,27 @@ jobs:
       - name: Configure Docker for Google Artifact Registry
         run: gcloud auth configure-docker {{secrets.GCP_REGION}}-docker.pkg.dev
 
-      - name: Build docker images
+      # - name: Build docker images
+      #   run: |
+      #     docker build -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}: {{ github.sha }} -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}: latest -f backend/Dockerfile ./backend
+      #     docker build -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}: {{ github.sha }} -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}: latest -f frontend/Dockerfile ./frontend
+
+    
+
+      - name: Build backend image
         run: |
-          docker build -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}: {{ github.sha }} -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}: latest -f backend/Dockerfile ./backend
-          docker build -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}: {{ github.sha }} -t {{secrets.GCP_REGION}}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}: latest -f frontend/Dockerfile ./frontend
+          docker build \
+            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.BE_IMAGE_NAME }}:latest \
+            -f backend/Dockerfile ./backend
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}:${{ github.sha }} \
+            -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.ARTIFACT_REPO_NAME }}/${{ secrets.FE_IMAGE_NAME }}:latest \
+            -f frontend/Dockerfile ./frontend
+
 
       - name: Push to Google Artifact Registry
         run: |
