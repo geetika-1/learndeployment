@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000'
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080'
 
 export const fetchGoals = createAsyncThunk('goals/fetchAll', async () => {
   const res = await fetch(`${API_BASE}/api/health-goals`)
